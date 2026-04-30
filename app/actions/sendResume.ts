@@ -15,7 +15,7 @@ export async function sendResume(formData: FormData) {
     n8nFormData.append("cargo", cargo);
     n8nFormData.append("file", blob, file.name); // <-- nome do arquivo explícito
 
-    const response = await fetch("https://pascoalotavio.app.n8n.cloud/webhook-test/407dea99-ef87-4db4-9bb5-2df8837c6118", {
+    const response = await fetch(process.env.N8N_URL!, {
       method: "POST",
       body: n8nFormData,
     });
