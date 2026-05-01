@@ -1,0 +1,29 @@
+services:
+  # O seu projeto Next.js (OM)
+  next-app:
+    build: .
+    container_name: om-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      # Comunicação INTERNA: o Next chama o n8n pelo nome do serviço
+      - N8N_URL=http://n8n-service:5678/webhook/vaga
+    depends_on:
+      - n8n-service
+
+  # O motor de automação (n8n)
+  n8n-service:
+    image: n8nio/n8n:latest
+    container_name: om-n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=OMTALENT
+      - WEBHOOK_URL=http://localhost:5678/ # URL para acesso via navegador
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:

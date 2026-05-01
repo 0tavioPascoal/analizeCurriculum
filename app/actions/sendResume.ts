@@ -1,34 +1,38 @@
-"use server"
+"use server";
 
 export async function sendResume(formData: FormData) {
   try {
-    const nome = formData.get("nome") as string;
-    const cargo = formData.get("cargo") as string;
-    const file = formData.get("file") as File;
+    const file = formData.get("file");
+    const nome = formData.get("nome");
+    const cargo = formData.get("cargo");
+    const email = formData.get("email");
 
-    // Converte o File para ArrayBuffer e depois para Blob explícito
-    const arrayBuffer = await file.arrayBuffer();
-    const blob = new Blob([arrayBuffer], { type: file.type });
+    if (!file || !(file instanceof Blob)) {
+      throw new Error("Arquivo PDF obrigatório não encontrado.");
+    }
 
-    const n8nFormData = new FormData();
-    n8nFormData.append("nome", nome);
-    n8nFormData.append("cargo", cargo);
-    n8nFormData.append("file", blob, file.name); // <-- nome do arquivo explícito
+    const webhookUrl = process.env.N8N_URL;
+    if (!webhookUrl) throw new Error("URL do n8n não configurada.");
 
-    const response = await fetch(process.env.N8N_URL!, {
+    const n8nData = new FormData();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    n8nData.append("file", file, (file as any).name || "curriculo.pdf");
+    n8nData.append("nome", String(nome));
+    n8nData.append("cargo", String(cargo));
+    n8nData.append("email", String(email)); 
+
+    const response = await fetch(webhookUrl, {
       method: "POST",
-      body: n8nFormData,
+      body: n8nData,
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Erro n8n:", errorText);
-      throw new Error("Erro na integração com n8n");
+      throw new Error(`Erro de comunicação: ${response.statusText}`);
     }
 
     return { success: true };
-  } catch (error) {
-    console.error("Action Error:", error);
-    throw error;
+  } catch (error: any) {
+    console.error("Server Action Failure:", error.message);
+    throw new Error(error.message);
   }
 }
