@@ -28,8 +28,5 @@ docker run -p 3000:3000 om-app
 ### **Matheus Freitas**
 *Analista de Sistemas e Engenheiro da Computação*
 
-### **Bruno Matheus**
-*Coordenador de Sistemas*
-
 ---
 *Este projeto utiliza os princípios de Clean Architecture e DDD para garantir escalabilidade e fácil manutenção.*
