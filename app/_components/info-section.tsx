@@ -49,7 +49,7 @@ export function InfoSection() {
           <span className="text-[10px] uppercase tracking-widest font-bold">Desenvolvido por</span>
         </div>
         <p className="text-xs text-slate-400 font-medium">
-          Otávio Pascoal • Matheus Freitas • Bruno Matheus
+          Otávio Pascoal • Matheus Freitas
         </p>
       </motion.div>
     </div>
