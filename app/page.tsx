@@ -47,7 +47,7 @@ export default function ResumeFormContainer() {
 
     try {
       await sendResume(formData);
-      toast.success("Dados enviados com sucesso, sua avaliação chegara no seu e-mail!");
+      toast.success("Dados enviados com sucesso, sua avaliação chegará no seu e-mail!");
       reset();
       setFile(null);
     } catch (error) {
