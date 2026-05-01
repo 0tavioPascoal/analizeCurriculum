@@ -16,7 +16,7 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Analisador de Currículo",
+  title: "OM - Redes Neurais",
   description: "Envie seu currículo para análise inteligente por IA",
 };
 
