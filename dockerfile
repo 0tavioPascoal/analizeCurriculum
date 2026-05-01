@@ -43,8 +43,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 USER nextjs
 
 # Porta padrão do Railway
-EXPOSE 3000
+# O Railway exige que o servidor escute na porta fornecida pela variável de ambiente PORT
 ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
 
-# Executa o servidor compilado pelo Next.js
-CMD ["node", "server.js"]
+CMD ["node", ".next/standalone/server.js"]

@@ -33,6 +33,7 @@ export async function sendResume(formData: FormData) {
     return { success: true };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any){
+    console.log(process.env.N8N_URL)
     console.error("Server Action Failure:", e.message);
     throw new Error(e.message);
   }
