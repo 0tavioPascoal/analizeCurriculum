@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Sparkles, Cpu, ShieldCheck } from "lucide-react";
+import { Sparkles, Cpu, ShieldCheck, Users } from "lucide-react";
 
 export function InfoSection() {
   return (
@@ -36,10 +36,27 @@ export function InfoSection() {
         <InfoCard icon={<Cpu size={20} />} title="Processing" desc="IA de Alto Desempenho" color="text-teal-400" />
         <InfoCard icon={<ShieldCheck size={20} />} title="Encryption" desc="Privacidade Total" color="text-blue-400" />
       </div>
+
+      {/* Seção de Criadores */}
+      <motion.div 
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }} 
+        transition={{ delay: 0.4 }}
+        className="pt-4 border-t border-white/5"
+      >
+        <div className="flex items-center text-slate-500 mb-2">
+          <Users size={14} />
+          <span className="text-[10px] uppercase tracking-widest font-bold">Desenvolvido por</span>
+        </div>
+        <p className="text-xs text-slate-400 font-medium">
+          Otávio Pascoal • Matheus Freitas • Bruno Matheus
+        </p>
+      </motion.div>
     </div>
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function InfoCard({ icon, title, desc, color }: any) {
   return (
     <div className="p-4 bg-white/5 border border-white/10 rounded-2xl">
